@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Transfer {
 
 	private Area to;
-	private int time;
+	private int time; // depende de cada paciente, ya está definido, no hay q tocar nada
 
 	/**
 	 * Builds a new Transfer.

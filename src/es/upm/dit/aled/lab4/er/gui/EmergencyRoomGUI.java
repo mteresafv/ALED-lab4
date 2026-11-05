@@ -88,7 +88,7 @@ public class EmergencyRoomGUI {
 	 * @param p The Patient.
 	 * @param t The Transfer.
 	 */
-	public void animateTransfer(Patient p, Transfer t) {
+	public void animateTransfer(Patient p, Transfer t) { // hace el mov del paciente de un área a otra
 		Position2D startPos = p.getPosition();
 		Area endArea = t.getTo();
 		Position2D endPos = endArea.getPosition();
@@ -126,14 +126,14 @@ public class EmergencyRoomGUI {
 	 * Removes a Patient from the screen.
 	 * @param p The Patient.
 	 */
-	public void removePatient(Patient p) {
+	public void removePatient(Patient p) { // remove el paciente cuando ya ha hecho todo lo que tenía que hacer
 		patients.remove(p);
 		drawingPanel.repaint();
 	}
 
 	/**
 	 * Inner class for the drawing canvas.
-	 */
+	 */           
 	private class DrawingPanel extends JPanel {
 		@Override
 		protected void paintComponent(Graphics g) {

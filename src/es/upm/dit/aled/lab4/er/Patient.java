@@ -20,12 +20,12 @@ import es.upm.dit.aled.lab4.er.gui.Position2D;
  * 
  * @author rgarciacarmona
  */
-public class Patient extends Thread {
+public class Patient extends Thread { // son hebras 
 
 	private int number;
-	private List<Transfer> protocol;
-	private int indexProtocol;
-	private Area location;
+	private List<Transfer> protocol; // mov del paciente a lo largo del hospital
+	private int indexProtocol; // en qué posición estamos dentro de la lista, hay que ir actualizándolo
+	private Area location; // en qué área se encuentra el paciente, hay q ir actualizando
 	private Position2D position;
 	private Color color;
 
@@ -138,7 +138,7 @@ public class Patient extends Thread {
 	 * the Patient must spend at this method the amount of time specified in such
 	 * Area.
 	 */
-	private void attendedAtLocation() {
+	private void attendedAtLocation() { // hacer a la hebra esperar (sleep)
 		// TODO
 	}
 

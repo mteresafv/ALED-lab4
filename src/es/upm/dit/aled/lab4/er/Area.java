@@ -18,8 +18,8 @@ import es.upm.dit.aled.lab4.er.gui.Position2D;
 public class Area {
 
 	private String name;
-	private int time;
-	private Position2D position;
+	private int time; // tiempo cte para todas las áreas, cada área tiene su tiempo y no cambia
+	private Position2D position; 
 	private Color color;
 
 	/**

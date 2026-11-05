@@ -131,7 +131,7 @@ public class EmergencyRoom {
 	 * 
 	 * @param patient The Patient.
 	 */
-	public void waitForDischarge(Patient patient) {
+	public void waitForDischarge(Patient patient) { 
 		// TODO
 	}
 
