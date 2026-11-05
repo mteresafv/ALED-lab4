@@ -131,7 +131,25 @@ public class Patient extends Thread { // son hebras
 	 */
 	private void advanceProtocol() {
 		// TODO
+		/*Patient p;
+		//Transfer t = new Transfer(p.getLocation(), t.getTime());
+		Transfer t = protocol.get(indexProtocol);
+		p.animateTransfer(p, t);
+		this.indexProtocol += 1;
+		*/
+		
+		//protocol: lista q va a estar rellena con las transfer del paciente		
+		Transfer t = protocol.get(indexProtocol);
+		// vamos a animar:
+		EmergencyRoomGUI.getInstance().animateTransfer(this, t); // this apunta a la estancia actual del paciente: es muy importante. No creamos un nuevo paciente si no el q ya tenemos
+		
+		// hay q actualizar el nuevo area al q nos movemos:
+		location = t.getTo();
+		
+		indexProtocol ++;
+		
 	}
+
 
 	/**
 	 * Simulates the treatment of the Patient at its current location. Therefore,
@@ -140,6 +158,21 @@ public class Patient extends Thread { // son hebras
 	 */
 	private void attendedAtLocation() { // hacer a la hebra esperar (sleep)
 		// TODO
+		/*try { // el paciente tiene q ser tratado = esperar
+			Patient.sleep(location.getTime());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		try {
+			Thread.sleep(location.getTime());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	/**
@@ -150,6 +183,13 @@ public class Patient extends Thread { // son hebras
 	@Override
 	public void run() {
 		// TODO
+		attendedAtLocation();
+		for (Transfer t : protocol) {
+			advanceProtocol();
+			attendedAtLocation();
+		}
+		// cuando termino, hacer q la interfaz grafica me borre
+		EmergencyRoomGUI.getInstance().removePatient(this);
 	}
 
 }

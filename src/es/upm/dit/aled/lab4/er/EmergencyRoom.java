@@ -122,8 +122,9 @@ public class EmergencyRoom {
 	 * 
 	 * @param patient The Patient.
 	 */
-	public void admit(Patient patient) {
+	public void admit(Patient patient) { // entre en el hospital y haga su protocolo
 		// TODO
+		patient.start();
 	}
 
 	/**
@@ -131,8 +132,15 @@ public class EmergencyRoom {
 	 * 
 	 * @param patient The Patient.
 	 */
-	public void waitForDischarge(Patient patient) { 
+	public void waitForDischarge(Patient patient) { // arrancar las hebras para q cada una haga su protocolo, arrancamos todas y luego esperamos a que todas terminen
 		// TODO
+		try {
+			patient.join(); // esperar individualmente a cada hebra
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }
