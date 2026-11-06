@@ -116,6 +116,53 @@ public class FASTAReaderThreads {
 	 */
 	public List<Integer> search(byte[] pattern) {
 		// TODO
+		
+		//
+		List<Integer> res = new ArrayList<>(); // todas las soluciones
+		
+		// identificar cuantos cores
+		int cores = Runtime.getRuntime().availableProcessors();
+		
+		// una vez q sé cuántos cores tengo, crear el ejecutor:
+		ExecutorService executor = Executors.newFixedThreadPool(cores); // las mismas q en cores
+		
+		int tamTarea = validBytes / cores;
+		// creo las tareas -> calcular los rangos (lo, hi) de cada una
+		
+		List<Future<List<Integer>>> futuros = new ArrayList<>();
+		
+		//muchas formas de hacerlo: -crear tantas tareas como cores -1, porque la última tarea puede tener un rango especial (ver foto q he hehco de la pizarra como ejemplo)
+		for(int i = 0; i < cores -1; i++) {
+			int lo = i*tamTarea; 
+			int hi = (i + 1)* tamTarea;
+			FASTASearchCallable tarea = new FASTASearchCallable(this, lo, hi, pattern);
+			// pasamos la tarea la executor:
+			Future<List<Integer>> futuro = executor.submit(tarea); // el ejecutor devuelve un Futuro
+			futuros.add(futuro);
+		}
+		
+		int lo = (cores - 1)* tamTarea;
+		int hi = validBytes; 
+		FASTASearchCallable tarea = new FASTASearchCallable(this, lo, hi, pattern);
+		Future<List<Integer>> futuro = executor.submit(tarea); 
+		futuros.add(futuro);
+		
+		//Pido respuestas
+		
+		for(Future<List<Integer>> future :futuros) {
+			List<Integer> resParcial = future.get();
+			res.addAll(resParcial);
+		}
+		
+		executor.shutdown();
+		
+		// paso las tareas al ejecutor(submit) -> Future (List)
+		
+		// espero solución cada Future
+		
+		// juntar las listas de soluciones en una y devolverla
+		
+		
 		return null;
 	}
 
